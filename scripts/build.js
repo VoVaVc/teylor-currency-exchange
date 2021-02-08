@@ -21,7 +21,6 @@ const webpack = require('webpack');
 const config = require('../config/webpack.config.prod');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
@@ -78,7 +77,6 @@ measureFileSizesBeforeBuild(paths.appBuild)
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
-      console.log();
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
@@ -92,9 +90,11 @@ measureFileSizesBeforeBuild(paths.appBuild)
         useYarn
       );
     },
-    err => {
+    errors => {
       console.log(chalk.red('Failed to compile.\n'));
-      printBuildError(err);
+      errors.forEach((err) => {
+        printBuildError(err);
+      })
       process.exit(1);
     }
   );
@@ -109,14 +109,10 @@ function build(previousFileSizes) {
       if (err) {
         return reject(err);
       }
-      const messages = formatWebpackMessages(stats.toJson({}, true));
+      // console.log('stats arte', stats.toJson({}, true))
+      const messages = stats.toJson({}, true);
       if (messages.errors.length) {
-        // Only keep the first error. Others are often indicative
-        // of the same problem, but confuse the reader with noise.
-        if (messages.errors.length > 1) {
-          messages.errors.length = 1;
-        }
-        return reject(new Error(messages.errors.join('\n\n')));
+        return reject(messages.errors);
       }
       if (
         process.env.CI &&
