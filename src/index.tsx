@@ -6,7 +6,8 @@ import App from './App';
 import store from './store/Store';
 import en from './locale/en';
 
-import './index.css';
+import './App.sass';
+import 'antd/dist/antd.css';
 
 // setup translations
 setTranslations({

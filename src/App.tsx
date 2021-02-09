@@ -1,4 +1,3 @@
-import './App.css';
 import { Layout } from 'antd';
 // import { translate } from 'react-i18nify';
 
