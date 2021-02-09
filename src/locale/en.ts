@@ -5,4 +5,5 @@ export default {
   made_with_love: 'Made with ❤️  by Vladimir Pavlov',
   curency_exchange_rates: 'Curency exchange rates',
   filter_currencies: 'Filter currencies',
+  change_graph: 'Currency change graph',
 }
