@@ -15,3 +15,18 @@ export function setAmount(state: number): AnyAction {
     type: EActions.SET_AMOUNT,
   };
 }
+
+
+export function setFavorite(state: string): AnyAction {
+  return {
+    payload: state,
+    type: EActions.SET_FAVORITE,
+  };
+}
+
+export function removeFavorite(state: string): AnyAction {
+  return {
+    payload: state,
+    type: EActions.REMOVE_FAVORITE,
+  };
+}

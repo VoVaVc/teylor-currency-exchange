@@ -3,6 +3,7 @@ import { AnyAction } from 'redux';
 
 export const initialState: IStore = {
   currencies: [],
+  favorites: [],
   amount: 1,
 };
 
@@ -20,7 +21,19 @@ export const reducer = (state = initialState, action: AnyAction): IStore => {
         amount: action.payload,
       }
 
+    case EActions.SET_FAVORITE:
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload],
+      }
+
+    case EActions.REMOVE_FAVORITE:
+      return {
+        ...state,
+        favorites: state.favorites.filter((item) => item !== action.payload)
+      }
+
     default:
-        return state;
+      return state;
   }
 };

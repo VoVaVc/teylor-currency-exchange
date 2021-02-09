@@ -3,7 +3,7 @@ export default {
   currency: 'Currency',
   exchange_rate: 'Exchange rate',
   made_with_love: 'Made with ❤️  by Vladimir Pavlov',
-  curency_exchange_rates: 'Curency exchange rates',
+  curency_exchange_rates: 'Currency exchange rates',
   filter_currencies: 'Filter currencies',
   change_graph: 'Currency change graph',
 }
