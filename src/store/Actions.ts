@@ -1,9 +1,9 @@
 import { AnyAction } from 'redux';
-import { IStore } from './StoreTypes';
+import { EActions } from './StoreTypes'
 
-export function setMovies(state: IStore): AnyAction {
+export function setCurrencies(state: string[]): AnyAction {
   return {
     payload: state,
-    type: 'weee',
+    type: EActions.SET_CURRENCIES_LIST,
   };
 }

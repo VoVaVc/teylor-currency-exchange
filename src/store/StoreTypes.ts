@@ -1,5 +1,5 @@
 export enum EActions {
-  SET_CURRENCIES = 'SET_CURRENCIES',
+  SET_CURRENCIES_LIST = 'SET_CURRENCIES_LIST',
 }
 
 export interface IStore {
