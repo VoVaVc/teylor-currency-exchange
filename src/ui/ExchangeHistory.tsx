@@ -2,10 +2,12 @@ import { Table } from 'antd';
 import { SortOrder } from 'antd/lib/table/interface';
 import moment from 'moment';
 import { translate } from 'react-i18nify';
+import { useSelector } from 'react-redux';
+import { IStore } from 'src/store/StoreTypes';
 
 const getTime = (date: string): number => new Date(date).getTime();
 
-export default function ExchangeHistory({ history, amount }) {
+export default function ExchangeHistory({ history }) {
   const columns = [{
     title: translate('date'),
     dataIndex: 'date',
@@ -25,7 +27,9 @@ export default function ExchangeHistory({ history, amount }) {
     },
   }];
 
+  const amount = useSelector((store: IStore) => store.amount);
   const sorted = history.sort((a, b) => getTime(b.date) - getTime(a.date));
+
   return (
     <Table columns={columns} dataSource={sorted} />
   )

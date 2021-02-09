@@ -3,6 +3,7 @@ import { AnyAction } from 'redux';
 
 export const initialState: IStore = {
   currencies: [],
+  amount: 1,
 };
 
 export const reducer = (state = initialState, action: AnyAction): IStore => {
@@ -12,6 +13,13 @@ export const reducer = (state = initialState, action: AnyAction): IStore => {
         ...state,
         currencies: action.payload,
       }
+
+    case EActions.SET_AMOUNT:
+      return {
+        ...state,
+        amount: action.payload,
+      }
+
     default:
         return state;
   }

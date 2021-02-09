@@ -1,5 +1,8 @@
 import { Row, Col, DatePicker } from 'antd';
 import { ReactElement, useEffect, useState } from 'react';
+import { translate } from 'react-i18nify';
+import { useSelector } from 'react-redux';
+import { IStore } from 'src/store/StoreTypes';
 
 // tools
 import { getCurrencyHistory } from 'src/api/Api';
@@ -14,9 +17,9 @@ const { RangePicker } = DatePicker;
 // charts
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { translate } from 'react-i18nify';
 
-function CurrencyView({ currencyCode, compareCurrencyCode, amount }): ReactElement {
+function CurrencyView({ currencyCode, compareCurrencyCode }): ReactElement {
+  const amount = useSelector((store: IStore) => store.amount);
   const [history, setHistory] = useState<ICurrencyHistory[]>([]);
   const [dateRange, setDateRange] = useState<Moment[]>([moment().subtract(1, 'month'), moment()]);
   const [chartSeries, setChartSeries] = useState<any>({
@@ -85,10 +88,7 @@ function CurrencyView({ currencyCode, compareCurrencyCode, amount }): ReactEleme
       <Row>
         <Col span={8}>
           <div className="base-offset-right">
-            <ExchangeHistory
-              amount={amount}
-              history={history}
-            />
+            <ExchangeHistory history={history} />
           </div>
         </Col>
         <Col span={16}>

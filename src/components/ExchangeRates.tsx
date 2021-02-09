@@ -5,15 +5,18 @@ import { SortOrder } from 'antd/lib/table/interface';
 
 import { getCurrency } from '../api/Api';
 import CurrencyFilter from '../ui/CurrencyFilter';
+import { useSelector } from 'react-redux';
+import { IStore } from 'src/store/StoreTypes';
 
 interface ICurrencyTable {
   name: string;
   value: number;
 }
 
-export default function ExchangeRates({ currency, onSelect, amount }) {
+export default function ExchangeRates({ currency, onSelect }) {
   const [data, setData] = useState<ICurrencyTable[]>([]);
   const [filtered, setFiltered] = useState<string[]>([]);
+  const amount = useSelector((store: IStore) => store.amount);
 
   const columns = [{
     title: translate('currency'),

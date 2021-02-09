@@ -1,6 +1,6 @@
 import { Layout, Row, Col, InputNumber } from 'antd';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { translate } from 'react-i18nify';
 
 // ui
@@ -10,16 +10,18 @@ import CurrencyView from './components/CurrencyView';
 
 // tools
 import { getCurrency } from './api/Api';
-import { setCurrencies } from './store/Actions';
+import { setCurrencies, setAmount } from './store/Actions';
+import { IStore } from './store/StoreTypes';
 
 const { Header, Footer, Content } = Layout;
 
 function App() {
   const [currency, setCurrency] = useState<string>('EUR');
   const [compareCurrency, setCompareCurrency] = useState<string>();
-  const [amount, setAmount] = useState<number>(1);
+  const amount = useSelector((store: IStore) => store.amount);
 
   const dispatch = useDispatch();
+  const setAmountState = (amount: number) => dispatch(setAmount(amount));
 
   const loaded = async () => {
     const currencies = await getCurrency();
@@ -31,7 +33,7 @@ function App() {
   }, []);
 
   return (
-    <Layout className="screen">
+    <Layout>
       <Header>
         <Row justify="space-between">
           <Col>
@@ -41,7 +43,7 @@ function App() {
             <InputNumber
               min={1}
               value={amount}
-              onChange={(value) => setAmount(Number(value))}
+              onChange={(value) => setAmountState(Number(value))}
             />
             <CurrencyPicker
               onSelect={setCurrency}
@@ -51,13 +53,12 @@ function App() {
         </Row>
 
       </Header>
-      <Content className="content">
+      <Content>
         <Row>
           <Col span={8}>
             <ExchangeRates
               currency={currency}
               onSelect={setCompareCurrency}
-              amount={amount}
             />
           </Col>
 
@@ -65,7 +66,6 @@ function App() {
             {
               compareCurrency &&
               <CurrencyView
-                amount={amount}
                 currencyCode={currency}
                 compareCurrencyCode={compareCurrency}
               />

@@ -7,3 +7,11 @@ export function setCurrencies(state: string[]): AnyAction {
     type: EActions.SET_CURRENCIES_LIST,
   };
 }
+
+
+export function setAmount(state: number): AnyAction {
+  return {
+    payload: state,
+    type: EActions.SET_AMOUNT,
+  };
+}
